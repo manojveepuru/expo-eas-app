@@ -24,30 +24,19 @@ jobs:
         run: |
           npm install
 
-      - name: Setup Expo 
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
+
+      - name: Build Android APK
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: 
-          npm install -g eas-cli
           eas whoami
+          eas build --platform android --local --profile development
 
-      # - name: Login to EAS
-      #   run: eas login --token ${{ secrets.EAS_ACCESS_TOKEN }}
 
-      # - name: Configure EAS for Android
-      #   run: |
-      #     eas build:configure --platform android
-
-      - name: Build Android App Locally
-        run: |
-          eas whoami
-          eas build --platform android --local
-
-      - name: Upload Android Build Artifact
+      - name: Upload APK to GitHub Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: android-app
-          path: build/android/*.apk  # Adjust path if needed
-
-      - name: Clean up EAS login
-        run: eas logout
+          name: android-apk
+          path: ./build
