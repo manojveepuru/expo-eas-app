@@ -1,0 +1,46 @@
+name: Build Android App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+
+      - name: Install dependencies
+        run: |
+          npm install -g eas-cli
+          npm install
+
+      - name: Login to EAS
+        run: eas login --token ${{ secrets.EAS_ACCESS_TOKEN }}
+
+      - name: Configure EAS for Android
+        run: |
+          eas build:configure --platform android
+
+      - name: Build Android App Locally
+        run: |
+          eas build --platform android --local
+
+      - name: Upload Android Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-app
+          path: build/android/*.apk  # Adjust path if needed
+
+      - name: Clean up EAS login
+        run: eas logout
