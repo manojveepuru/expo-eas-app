@@ -32,6 +32,12 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f33e2ece-857f-48aa-b636-4f0c11d749b3"
+      }
+    },
+    "owner": "manojveepuru"
   }
 }
