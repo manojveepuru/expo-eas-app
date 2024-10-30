@@ -30,9 +30,8 @@ jobs:
       - name: Build Android APK
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: 
-          eas whoami
-          eas build --platform android --local --profile development
+        run:
+          eas build --platform android --local
 
 
       - name: Upload APK to GitHub Artifacts
