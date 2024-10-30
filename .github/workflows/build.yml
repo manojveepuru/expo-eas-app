@@ -34,12 +34,13 @@ jobs:
       # - name: Login to EAS
       #   run: eas login --token ${{ secrets.EAS_ACCESS_TOKEN }}
 
-      - name: Configure EAS for Android
-        run: |
-          eas build:configure --platform android
+      # - name: Configure EAS for Android
+      #   run: |
+      #     eas build:configure --platform android
 
       - name: Build Android App Locally
         run: |
+          eas whoami
           eas build --platform android --local
 
       - name: Upload Android Build Artifact
