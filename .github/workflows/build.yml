@@ -41,7 +41,7 @@ jobs:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
           EXPO_PROJECT_ID: ${{ secrets.EXPO_PROJECT_ID }}
         run:
-          eas build --platform android --local --profile development
+          eas build --platform android --local --profile production
 
       - name: Upload APK to GitHub Artifacts
         uses: actions/upload-artifact@v4
